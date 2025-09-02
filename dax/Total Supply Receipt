@@ -1,0 +1,1 @@
+Total Supply (Receipt) = CALCULATE(SUM(PipelineConnectionFlows_Master[Actual Quantity]), PipelineConnectionFlows_Master[Flow Direction] = "Receipt")
