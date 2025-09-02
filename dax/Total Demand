@@ -1,0 +1,1 @@
+Total Demand = CALCULATE(SUM(SupplyDemandSummary[Total Flow]), SupplyDemandSummary[Flow Direction] = "Delivery")
