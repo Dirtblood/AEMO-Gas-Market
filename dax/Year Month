@@ -1,0 +1,3 @@
+YearMonth = 
+FORMAT(PipelineConnectionFlows_Master[Gas Year], "0000") & "-" &
+PipelineConnectionFlows_Master[Gas Month]
