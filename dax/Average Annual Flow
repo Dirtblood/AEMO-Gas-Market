@@ -1,0 +1,5 @@
+Average Annual Flow = 
+AVERAGEX(
+    VALUES(PipelineConnectionFlows_Master[Gas Year]),
+    CALCULATE(SUM(PipelineConnectionFlows_Master[Actual Quantity]))
+)
