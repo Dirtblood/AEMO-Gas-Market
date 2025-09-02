@@ -1,0 +1,20 @@
+let
+    Source = Sql.Databases("NICSLAPTOP"),
+    AEMO_Energy_Security = Source{[Name="AEMO_Energy_Security"]}[Data],
+    dbo_PipelineConnectionFlows_Master = AEMO_Energy_Security{[Schema="dbo",Item="PipelineConnectionFlows_Master"]}[Data],
+    
+    #"Renamed Columns" = Table.RenameColumns(dbo_PipelineConnectionFlows_Master,{{"GasDate", "Gas Date"}, {"FacilityName", "Facility Name"}, {"FacilityId", "Facility Id"}, {"ConnectionPointName", "Connection Point Name"}, {"ConnectionPointId", "Connection Point Id"}, {"ActualQuantity", "Actual Quantity"}, {"FlowDirection", "Flow Direction"}, {"LocationName", "Location Name"}, {"LocationId", "Location Id"}}),
+    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "Gas Year", each Date.Year([Gas Date])),
+    
+    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Gas Month", each Date.MonthName([Gas Date])),
+    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Quarter of Year", each Date.QuarterOfYear([Gas Date])),
+    #"Renamed Columns1" = Table.RenameColumns(#"Added Custom2",{{"Quarter of Year", "Quarter of Calendar Year"}}),
+    
+    #"Added Custom3" = Table.AddColumn(#"Renamed Columns1", "Month Number", each Date.Month([Gas Date])),
+    #"Added Custom4" = Table.AddColumn(#"Added Custom3", "Season", each if Date.Month([Gas Date]) >= 6 and Date.Month([Gas Date]) <= 8 then "Winter"
+else if Date.Month([Gas Date]) >= 12 or Date.Month([Gas Date]) <= 2 then "Summer"
+else "Other"),
+
+    #"Removed Columns" = Table.RemoveColumns(#"Added Custom4",{"Quality"})
+in
+    #"Removed Columns"
