@@ -1,0 +1,5 @@
+Average Monthly Flow = 
+DIVIDE(
+    SUM(PipelineConnectionFlows_Master[Actual Quantity]),
+    DISTINCTCOUNT(PipelineConnectionFlows_Master[YearMonth])
+)
