@@ -1,0 +1,5 @@
+SELECT TOP (20) FacilityName,
+SUM(avg_flow_rate) AS TotalAverageFlowRate
+FROM [AEMO_Energy_Security].[dbo].[NewPipelineFlowSummary]
+GROUP BY FacilityName
+ORDER BY TotalAverageFlowRate DESC;
