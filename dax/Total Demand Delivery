@@ -1,0 +1,1 @@
+Total Demand (Delivery) = CALCULATE(SUM(PipelineConnectionFlows_Master[Actual Quantity]), PipelineConnectionFlows_Master[Flow Direction] = "Delivery")
